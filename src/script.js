@@ -29,9 +29,9 @@ for (let i = 0; i < particlesCnt * 3; i++) {
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
 //EDIT WITH ACTUAL PARTICLE START
-const fwkStart = new THREE.Vector3(0,0,0)
+var fwkStart = new THREE.Vector3(0,0,0)
 
-var fwkCount = 1000;
+var fwkCount = 500;
 const fwkGeometry = new THREE.BufferGeometry;
 // const fwkGeometry = new THREE.SphereGeometry(0.1, 32, 16);
 const fwkArray = new Float32Array(fwkCount * 3);
@@ -52,6 +52,19 @@ const fwk_M = 0.5
 const fwk_R = Math.pow((fwk_M/(1000 * fwk_p * Math.PI * (4/3))), 1/3)
 const fwk_Cd = 1
 
+
+//enable fwk recursion
+function setFirework() {
+    fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 40 - 30)
+    for (let i = 0; i < fwkCount * 3; i+=3) {
+        const fwkPos = new THREE.Vector3
+        fwkPos.setFromSpherical(randomSpherePoint(0.025))
+        fwkPos.add(fwkStart)
+        fwkPos.toArray(fwkMesh.geometry.attributes.position.array, i)
+    }
+    fwkMesh.material.opacity = 0.5
+    fwkMesh.material.color.setHex(Math.floor(Math.random()*16777215));
+}
 
 function randomSpherePoint(radius){
    //pick numbers between 0 and 1
@@ -166,6 +179,8 @@ function animateParticles(event) {
  */
 
 const clock = new THREE.Clock()
+
+setInterval(setFirework, 8000);
 
 const tick = () =>
 {
