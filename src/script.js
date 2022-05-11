@@ -217,7 +217,7 @@ function animateParticles(event) {
 
 const clock = new THREE.Clock()
 
-setInterval(setFirework, 8000);
+//setInterval(setFirework, 8000);
 
 const tick = () =>
 {
@@ -293,3 +293,123 @@ const tick = () =>
 }
 
 tick()
+
+
+// A4
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 96) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 440.0
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// B4
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 97) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 493.9
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// C5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 98) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 523.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// D5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 99) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 587.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// E5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 100) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 659.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// F5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 101) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 698.5
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// G5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 102) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 784.0
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
