@@ -55,10 +55,10 @@ const fwk_Cd = 1
 
 //enable fwk recursion
 function setFirework() {
-    //fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
+    fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
     mouseX = event.clientX
     mouseY = event.clientY
-    fwkStart = new THREE.Vector3(mouseX * (1/10) - 95, -mouseY * (1/10) + 50, 0)
+    //fwkStart = new THREE.Vector3(mouseX * (1/10) - 95, -mouseY * (1/10) + 50, 0)
     for (let i = 0; i < fwkCount * 3; i+=3) {
         const fwkPos = new THREE.Vector3
         fwkPos.setFromSpherical(randomSpherePoint(0.025))
@@ -237,6 +237,122 @@ const tick = () =>
 
 tick()
 
-addEventListener('click', () => {
-    setFirework()
+
+// A4
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 96) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 440.0
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// B4
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 97) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 493.9
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// C5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 98) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 523.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// D5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 99) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 587.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// E5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 100) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 659.3
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// F5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 101) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 698.5
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// G5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 102) {
+        e.preventDefault();
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var  g = context.createGain()
+        var frequency = 784.0
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
 })
