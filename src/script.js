@@ -17,9 +17,9 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.TorusGeometry( 0, 0, 0, 0 );
 const particlesGeometry = new THREE.BufferGeometry;
-const particlesCnt = 5000;
+const particlesCnt = 0;
 
 const posArray = new Float32Array(particlesCnt * 3);
 
@@ -78,7 +78,7 @@ function setFirework() {
     //fwk go up start
     fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
     shellClk = new THREE.Clock()
-    shellVelocity = 2
+    shellVelocity = 0
     shellMesh.position.set(fwkStart.x, fwkStart.y - shellOffset, fwkStart.z)
     //shellVelocity = 10 * shellTime
     shellMesh.material.opacity = 1
