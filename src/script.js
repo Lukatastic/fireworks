@@ -114,12 +114,12 @@ const particlesMaterial = new THREE.PointsMaterial({
     color: 'blue'
 })
 
-const shellMaterial = new THREE.MeshPhongMaterial({
+const shellMaterial = new THREE.MeshBasicMaterial({
     size: 4,
     //map: particle,
     //transparent: true,
     opacity: 0.5,
-    color: 'blue',
+    color: 'white',
     alphaTest: 0.01
 })
 
