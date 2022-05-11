@@ -44,6 +44,9 @@ for (let i = 0; i < fwkCount * 3; i+=3) {
 
 fwkGeometry.setAttribute('position', new THREE.BufferAttribute(fwkArray, 3))
 
+const shellGeometry = new THREE.SphereGeometry(2, 32, 16);
+// const shellLight = new THREE.PointLight(0,10,0);
+
 // Firework Helpers
 const fwk_E = 100000
 const fwk_pa = 1.225
@@ -52,10 +55,31 @@ const fwk_M = 0.5
 const fwk_R = Math.pow((fwk_M/(1000 * fwk_p * Math.PI * (4/3))), 1/3)
 const fwk_Cd = 1
 
+const shellTime = 2
+var shellVelocity = 2
+var shellOffset = 110
+var shellClk = new THREE.Clock()
+var bloomReady = false
+shellClk.getElapsedTime();
+
 
 //enable fwk recursion
 function setFirework() {
+    //fwk go up start
     fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
+    shellClk = new THREE.Clock()
+    shellVelocity = 2
+    shellMesh.position.set(fwkStart.x, fwkStart.y - shellOffset, fwkStart.z)
+    //shellVelocity = 10 * shellTime
+    shellMesh.material.opacity = 1
+    
+    //shellVelocity =s
+    //fwk bloom reset
+
+
+}
+
+function fwkBloom() {
     for (let i = 0; i < fwkCount * 3; i+=3) {
         const fwkPos = new THREE.Vector3
         fwkPos.setFromSpherical(randomSpherePoint(0.025))
@@ -64,6 +88,7 @@ function setFirework() {
     }
     fwkMesh.material.opacity = 0.5
     fwkMesh.material.color.setHex(Math.floor(Math.random()*16777215));
+    bloomReady = false
 }
 
 function randomSpherePoint(radius){
@@ -75,6 +100,7 @@ function randomSpherePoint(radius){
    var phi = Math.acos(2 * v - 1);
    return new THREE.Spherical(radius, phi, theta)
 }
+//fwk non-recursive end
 
 // Materials
 
@@ -86,6 +112,15 @@ const particlesMaterial = new THREE.PointsMaterial({
     size: 0.005,
     transparent: true,
     color: 'blue'
+})
+
+const shellMaterial = new THREE.MeshPhongMaterial({
+    size: 4,
+    //map: particle,
+    //transparent: true,
+    opacity: 0.5,
+    color: 'blue',
+    alphaTest: 0.01
 })
 
 const fwkMaterial = new THREE.PointsMaterial({
@@ -103,7 +138,9 @@ const fwkMaterial = new THREE.PointsMaterial({
 const sphere = new THREE.Points(geometry,material)
 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial)
 const fwkMesh = new THREE.Points(fwkGeometry, fwkMaterial)
-scene.add(sphere, particlesMesh, fwkMesh)
+const shellMesh = new THREE.Mesh(shellGeometry, shellMaterial)
+shellMesh.position.set(0, -91.5, 0)
+scene.add(sphere, particlesMesh, fwkMesh, shellMesh)
 
 // Lights
 
@@ -185,17 +222,35 @@ setInterval(setFirework, 8000);
 const tick = () =>
 {
     fwkMesh.geometry.attributes.position.needsUpdate = true;
+    shellMesh.position.needsUpdate = true;
     const fwk_dt = clock.getDelta();
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
     sphere.rotation.y = .5 * elapsedTime
-    particlesMesh.rotation.y = -0.1 * elapsedTime
+    //particlesMesh.rotation.y = -0.5 * elapsedTime
     if (mouseX > 0) { 
     particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00008)
     particlesMesh.rotation.y = mouseX + (elapsedTime * 0.00008)
     }
 
+    //fwk shell physics
+
+    //shellVelocity = shellVelocity + -0.05 * Math.pow(shellClk.getElapsedTime(), 1.5)
+    shellVelocity = shellVelocity + -0.05 * Math.pow(shellClk.getElapsedTime(), 1.5)
+    shellMesh.position.set(shellMesh.position.x, shellMesh.position.y + shellVelocity, shellMesh.position.z);
+
+    if (shellVelocity < 0 && shellMesh.material.opacity != 0) {
+        shellMesh.material.opacity = 0
+        bloomReady = true
+    }
+
+    if (bloomReady == true) {
+        fwkBloom()
+    }
+
+
+    //fwk bloom physics
     const fwkPositions = fwkMesh.geometry.attributes.position.array
     for (let i = 0; i < fwkCount * 3; i+=3) {
         var currParticle = new THREE.Vector3()
@@ -217,6 +272,11 @@ const tick = () =>
         // currParticle.add(modi)
         currParticle.toArray(fwkPositions, i)
     }
+
+    //     if (mouseX > 0) { 
+    // fwkMesh.rotation.x = -mouseX * (elapsedTime * 0.0000008)
+    // fwkMesh.rotation.y = mouseY + (elapsedTime * 0.0000008)
+    // }
 
     // fwkMesh.rotation.x = -0.1 * elapsedTime
     // fwkMesh.rotation.y = 0.1 * elapsedTime
