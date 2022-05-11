@@ -58,7 +58,7 @@ function setFirework() {
     //fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
     mouseX = event.clientX
     mouseY = event.clientY
-    fwkStart = new THREE.Vector3(mouseX * (1/10) - 55, -mouseY * (1/10) + 50, 0)
+    fwkStart = new THREE.Vector3(mouseX * (1/10) - 95, -mouseY * (1/10) + 50, 0)
     for (let i = 0; i < fwkCount * 3; i+=3) {
         const fwkPos = new THREE.Vector3
         fwkPos.setFromSpherical(randomSpherePoint(0.025))
