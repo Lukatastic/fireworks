@@ -28,6 +28,9 @@ for (let i = 0; i < particlesCnt * 3; i++) {
 }
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
+// Current Mode
+var isMusicMode = true
+
 //EDIT WITH ACTUAL PARTICLE START
 var fwkStart = new THREE.Vector3(0,0,0)
 
@@ -44,7 +47,7 @@ for (let i = 0; i < fwkCount * 3; i+=3) {
 
 fwkGeometry.setAttribute('position', new THREE.BufferAttribute(fwkArray, 3))
 
-const shellGeometry = new THREE.SphereGeometry(2, 32, 16);
+const shellGeometry = new THREE.SphereGeometry(1, 32, 16);
 // const shellLight = new THREE.PointLight(0,10,0);
 
 // Firework Helpers
@@ -297,7 +300,7 @@ tick()
 
 // A4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 96) {
+    if (e.keyCode === 65) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -314,7 +317,7 @@ addEventListener('keydown', (e)=> {
 
 // B4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 97) {
+    if (e.keyCode === 83) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -331,7 +334,7 @@ addEventListener('keydown', (e)=> {
 
 // C5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 98) {
+    if (e.keyCode === 68) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -348,7 +351,7 @@ addEventListener('keydown', (e)=> {
 
 // D5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 99) {
+    if (e.keyCode === 70) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -365,7 +368,7 @@ addEventListener('keydown', (e)=> {
 
 // E5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 100) {
+    if (e.keyCode === 71) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -382,7 +385,7 @@ addEventListener('keydown', (e)=> {
 
 // F5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 101) {
+    if (e.keyCode === 72) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -399,7 +402,7 @@ addEventListener('keydown', (e)=> {
 
 // G5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 102) {
+    if (e.keyCode === 74) {
         e.preventDefault();
         setFirework()
         var context = new AudioContext()
@@ -411,5 +414,12 @@ addEventListener('keydown', (e)=> {
         g.connect(context.destination)
         o.start(0)
         g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// Switch Modes (Freestyle/Piano)
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 13) {
+        isMusicMode = !isMusicMode
     }
 })
