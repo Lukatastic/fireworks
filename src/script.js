@@ -8,7 +8,7 @@ const loader = new THREE.TextureLoader()
 const particle = loader.load('./star-particle.png')
 
 // Debug
-const gui = new dat.GUI()
+var gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -29,7 +29,14 @@ for (let i = 0; i < particlesCnt * 3; i++) {
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
 // Current Mode
-var isMusicMode = true
+var params = {
+    isMusicMode: true
+};
+gui.add(params, "isMusicMode").listen();
+gui.open();
+
+// Firework Sound Freq (Music Mode)
+var frequency = 0.0;
 
 //EDIT WITH ACTUAL PARTICLE START
 var fwkStart = new THREE.Vector3(0,0,0)
@@ -47,7 +54,7 @@ for (let i = 0; i < fwkCount * 3; i+=3) {
 
 fwkGeometry.setAttribute('position', new THREE.BufferAttribute(fwkArray, 3))
 
-const shellGeometry = new THREE.SphereGeometry(1, 32, 16);
+const shellGeometry = new THREE.SphereGeometry(0.7, 32, 16);
 // const shellLight = new THREE.PointLight(0,10,0);
 
 // Firework Helpers
@@ -78,8 +85,21 @@ function setFirework() {
     
     //shellVelocity =s
     //fwk bloom reset
+}
 
-
+function setFireworkFreestyle() {
+    //fwk go up start
+    mouseX = event.clientX
+    mouseY = event.clientY
+    fwkStart = new THREE.Vector3(mouseX * (1/9.3) - 103, -mouseY * (1/9.5) + 55, 0)
+    shellClk = new THREE.Clock()
+    shellVelocity = 2
+    shellMesh.position.set(fwkStart.x, fwkStart.y - shellOffset, fwkStart.z)
+    //shellVelocity = 10 * shellTime
+    shellMesh.material.opacity = 1
+    
+    //shellVelocity =s
+    //fwk bloom reset
 }
 
 function fwkBloom() {
@@ -90,8 +110,40 @@ function fwkBloom() {
         fwkPos.toArray(fwkMesh.geometry.attributes.position.array, i)
     }
     fwkMesh.material.opacity = 0.5
-    fwkMesh.material.color.setHex(Math.floor(Math.random()*16777215));
     bloomReady = false
+    if (frequency == 440.0) {
+        fwkMesh.material.color.setHex(0xe63c3c);
+        return
+    }
+    if (frequency == 493.9) {
+        fwkMesh.material.color.setHex(0xe6842e);
+        return
+    }
+    if (frequency == 523.3) {
+        fwkMesh.material.color.setHex(0xe6d72e);
+        return
+    }
+    if (frequency == 587.3) {
+        fwkMesh.material.color.setHex(0x71e62e);
+        return
+    }
+    if (frequency == 659.3) {
+        fwkMesh.material.color.setHex(0x2ee0e6);
+        return
+    }
+    if (frequency == 698.5) {
+        fwkMesh.material.color.setHex(0x2e6be6);
+        return
+    }
+    if (frequency == 784.0) {
+        fwkMesh.material.color.setHex(0x782ee6);
+        return
+    }
+    if (frequency == 880.0) {
+        fwkMesh.material.color.setHex(0xe62ee3);
+        return
+    } 
+    fwkMesh.material.color.setHex(Math.floor(Math.random()*16777215));
 }
 
 function randomSpherePoint(radius){
@@ -297,16 +349,15 @@ const tick = () =>
 
 tick()
 
-
 // A4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 65) {
+    if (e.keyCode === 65 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 440.0
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 440.0
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -317,13 +368,13 @@ addEventListener('keydown', (e)=> {
 
 // B4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 83) {
+    if (e.keyCode === 83 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 493.9
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 493.9
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -334,13 +385,13 @@ addEventListener('keydown', (e)=> {
 
 // C5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 68) {
+    if (e.keyCode === 68 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 523.3
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 523.3
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -351,13 +402,13 @@ addEventListener('keydown', (e)=> {
 
 // D5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 70) {
+    if (e.keyCode === 70 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 587.3
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 587.3
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -368,13 +419,13 @@ addEventListener('keydown', (e)=> {
 
 // E5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 71) {
+    if (e.keyCode === 71 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 659.3
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 659.3
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -385,13 +436,13 @@ addEventListener('keydown', (e)=> {
 
 // F5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 72) {
+    if (e.keyCode === 72 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 698.5
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 698.5
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -402,13 +453,13 @@ addEventListener('keydown', (e)=> {
 
 // G5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 74) {
+    if (e.keyCode === 74 && params.isMusicMode) {
         e.preventDefault();
+        frequency = 784.0
         setFirework()
         var context = new AudioContext()
         var o = context.createOscillator()
-        var  g = context.createGain()
-        var frequency = 784.0
+        var g = context.createGain()
         o.frequency.value = frequency
         o.connect(g)
         g.connect(context.destination)
@@ -417,9 +468,36 @@ addEventListener('keydown', (e)=> {
     }
 })
 
-// Switch Modes (Freestyle/Piano)
+// A5
+addEventListener('keydown', (e)=> {
+    if (e.keyCode === 75 && params.isMusicMode) {
+        e.preventDefault();
+        frequency = 880.0
+        setFirework()
+        var context = new AudioContext()
+        var o = context.createOscillator()
+        var g = context.createGain()
+        o.frequency.value = frequency
+        o.connect(g)
+        g.connect(context.destination)
+        o.start(0)
+        g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.5)
+    }
+})
+
+// Freestyle Mode
+addEventListener('click', (e)=> {
+    if (!params.isMusicMode) {
+        setFireworkFreestyle()
+    }
+})
+
+// Switch Modes (Music/Freestyle)
 addEventListener('keydown', (e)=> {
     if (e.keyCode === 13) {
-        isMusicMode = !isMusicMode
+        params.isMusicMode = !params.isMusicMode
+        if (!params.isMusicMode) {
+            frequency = 0.0
+        }
     }
 })
