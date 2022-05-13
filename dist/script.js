@@ -5,7 +5,7 @@ import * as dat from 'dat.gui'
 
 // Texture Loader
 const loader = new THREE.TextureLoader()
-const particle = loader.load('./star-particle.png')
+const particle = loader.load('./circle-particle.png')
 
 // Debug
 var gui = new dat.GUI()
@@ -78,7 +78,7 @@ function setFirework() {
     //fwk go up start
     fwkStart = new THREE.Vector3(Math.random() * 20 - 10,Math.random() * 10 - 5,Math.random() * 60 - 50)
     shellClk = new THREE.Clock()
-    shellVelocity = 2
+    shellVelocity = 0
     shellMesh.position.set(fwkStart.x, fwkStart.y - shellOffset, fwkStart.z)
     //shellVelocity = 10 * shellTime
     shellMesh.material.opacity = 1
@@ -195,7 +195,7 @@ const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial)
 const fwkMesh = new THREE.Points(fwkGeometry, fwkMaterial)
 const shellMesh = new THREE.Mesh(shellGeometry, shellMaterial)
 shellMesh.position.set(0, -91.5, 0)
-scene.add(sphere, particlesMesh, fwkMesh, shellMesh)
+scene.add(fwkMesh, shellMesh)
 
 // Lights
 
@@ -319,7 +319,7 @@ const tick = () =>
         normie.multiplyScalar(v_in)
         normie.multiplyScalar(0.002)
         currParticle.add(normie)
-        if (distToCtr > 38) {
+        if ((distToCtr > 38 && params.isMusicMode == false) || (distToCtr > 24.3 && params.isMusicMode == true)) {
             fwkMesh.material.opacity = fwkMesh.material.opacity - 0.00002
         } else {}
         
@@ -351,7 +351,7 @@ tick()
 
 // A4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 65 && params.isMusicMode) {
+    if (e.keyCode === 65 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 440.0
         setFirework()
@@ -368,7 +368,7 @@ addEventListener('keydown', (e)=> {
 
 // B4
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 83 && params.isMusicMode) {
+    if (e.keyCode === 83 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 493.9
         setFirework()
@@ -385,7 +385,7 @@ addEventListener('keydown', (e)=> {
 
 // C5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 68 && params.isMusicMode) {
+    if (e.keyCode === 68 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 523.3
         setFirework()
@@ -402,7 +402,7 @@ addEventListener('keydown', (e)=> {
 
 // D5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 70 && params.isMusicMode) {
+    if (e.keyCode === 70 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 587.3
         setFirework()
@@ -419,7 +419,7 @@ addEventListener('keydown', (e)=> {
 
 // E5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 71 && params.isMusicMode) {
+    if (e.keyCode === 71 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 659.3
         setFirework()
@@ -436,7 +436,7 @@ addEventListener('keydown', (e)=> {
 
 // F5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 72 && params.isMusicMode) {
+    if (e.keyCode === 72 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 698.5
         setFirework()
@@ -453,7 +453,7 @@ addEventListener('keydown', (e)=> {
 
 // G5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 74 && params.isMusicMode) {
+    if (e.keyCode === 74 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 784.0
         setFirework()
@@ -470,7 +470,7 @@ addEventListener('keydown', (e)=> {
 
 // A5
 addEventListener('keydown', (e)=> {
-    if (e.keyCode === 75 && params.isMusicMode) {
+    if (e.keyCode === 75 && params.isMusicMode && fwkMesh.material.opacity < 0.4) {
         e.preventDefault();
         frequency = 880.0
         setFirework()
@@ -487,7 +487,7 @@ addEventListener('keydown', (e)=> {
 
 // Freestyle Mode
 addEventListener('click', (e)=> {
-    if (!params.isMusicMode) {
+    if (!params.isMusicMode && fwkMesh.material.opacity < 0.2) {
         setFireworkFreestyle()
     }
 })
