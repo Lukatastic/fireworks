@@ -17,9 +17,9 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.TorusGeometry( 0, 0, 0, 0 );
 const particlesGeometry = new THREE.BufferGeometry;
-const particlesCnt = 5000;
+const particlesCnt = 0;
 
 const posArray = new Float32Array(particlesCnt * 3);
 
