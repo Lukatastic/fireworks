@@ -1,15 +1,11 @@
-<<<<<<< HEAD:dist/script.js
-import 'style.css'
-=======
 import './style.css'
->>>>>>> f423e4490cb7f3390b411030d938a0694d848a7c:script.js
-import * as THREE from 'https://unpkg.com/three@0.140.0/build/three.module.js'
+import * as THREE from 'https://unpkg.com/three/build/three.module.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
 // Texture Loader
 const loader = new THREE.TextureLoader()
-const particle = loader.load('circle-particle.png')
+const particle = loader.load('./circle-particle.png')
 
 // Debug
 var gui = new dat.GUI()

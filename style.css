@@ -37,7 +37,7 @@ body
     position: relative;
 }
 
-/* .content:before {
+.content:before {
     content: '';
     position: absolute;
     top: 0;
@@ -45,7 +45,7 @@ body
     width: 100%;
     border-bottom: 1px solid white;
     transform: scaleX(1);
-} */
+}
 
 h1 {
     font-size: 4rem;
