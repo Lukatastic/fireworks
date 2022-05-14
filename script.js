@@ -1,6 +1,6 @@
 import './style.css'
 import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-import * as dat from 'dat.gui'
+import * as dat from 'https://unpkg.com/dat.gui'
 
 // Texture Loader
 const loader = new THREE.TextureLoader()
